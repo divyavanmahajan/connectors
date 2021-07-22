@@ -2143,7 +2143,7 @@ def define_burst_table(stage_table, target_table, columns, file_list):
     if options.filestore == FileStore.AZURE_BLOB:
         stage_sql += " LOCATION 'wasbs://{0}@{1}.blob.core.windows.net/{2}'".format(options.container, options.resource, options.folder)
     elif options.filestore == FileStore.ADLS_G2:
-        stage_sql += " LOCATION 'wasbs://{0}@{1}.blob.core.windows.net/{2}'".format(options.container, options.resource, options.folder)
+        stage_sql += " LOCATION 'abfss://{0}@{1}.dfs.core.windows.net/{2}'".format(options.container, options.resource, options.folder)
     else:
         stage_sql += " LOCATION 's3://{0}/{1}' ".format(options.container, options.folder)
     if options.file_format == 'csv':
@@ -2171,7 +2171,7 @@ def do_copy_into_sql(load_table, target_table, hvr_columns, col_types, file_list
     if options.filestore == FileStore.AZURE_BLOB:
         copy_sql += " FROM 'wasbs://{0}@{1}.blob.core.windows.net/') ".format(options.container, options.resource)
     elif options.filestore == FileStore.ADLS_G2:
-        copy_sql += " FROM 'wasbs://{0}@{1}.blob.core.windows.net/') ".format(options.container, options.resource)
+        copy_sql += " FROM 'abfss://{0}@{1}.dfs.core.windows.net/') ".format(options.container, options.resource)
     else:
         copy_sql += " FROM 's3://{0}') ".format(options.container)
     copy_sql += "FILEFORMAT = {} ".format(options.file_format.upper())
